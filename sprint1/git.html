@@ -1,0 +1,89 @@
+<!-- 
+  git - version control system
+  repository - database of versions/edits
+  working copy - local folder with our project
+  commit changes - вносити зміни
+  update changes - одновлювати, отримувати зміни
+  ? distributed version control - working copy - staging area/index - commit(snapshot of working directory)/update - local repository(stored in hidden folder .git) - push/pull - server/main repository
+  node modules - package manager
+  гілки - посилання на конкретний коміт
+
+
+
+  ! Commands
+  git config --global user.name 'Vira Matiiash'
+  git config --global user.email virko1996@gmail.com
+  git config --list
+
+  git init - create an empty local repo
+  git clone <URL> - create local repo from remote repo
+  git remote add origin <https> // додає до локального репозиторія віддалений
+  git push -u origin master // відправить наш проект до віддаленого репозиторію
+
+  git add . - working directory - staging area/index (підготовка до коміта)
+  git commit - snapshot of staging area and places it to the local repo
+  git commit -m 'comment'
+  git push - sends our commit/changes to the remote repo/server
+  git push origin branch_name (grumpy-cat) - закидає окрему гілку на віддалений репозиторій
+  git fetch - gets changes from the remote repository to the local one
+  git merge (origin/master) - merges changes from the local repo to the working directory
+
+  git help <command>/git <command> --help - info about any git command
+
+  git status - shows the working tree status, state of the project
+  git log - shows all commits (історія комітів). Тут також будуть вказані унікальні ідентифікатори, які ми можемо використати у майбутньому для команд гіта.
+  git ls-files -s - shows files in the index
+
+  git rm  - remove files from the working tree and from the index
+  git reset - resets changes - cкидає зміни. Переміщує вказівник гілки в історії на страріший коміт, так ніби коміт ніколи не створювався. Чудово працює для локальних бранчів на власному комп'ютері, але оскільки спричиняє 'переписування історії', то не можна її використовувати в ситуації, коли кілька користувачів працюють з цим бранчем.
+  git reset HEAD~1
+  git reset local^
+  git revert - повертає зміни, тобто, відкочує їх і таким чином можна подилитися цими відкоченими змінами з друзями.
+  git revert HEAD - створюється наступний коміт з протилежними змінами до попереднього коміту. Тоді можна зробити push і поділитися гілкою з іншими.
+
+  git commit -am 'comment' - shortcut for 2 commands - git add and git commit
+  git pull - shortcut for 2 commands - git fetch and git merge
+
+  git remote -v - list of remote repos
+  git remote add - add remote repo
+  git remote rm - remove remote repo
+
+  git branch - list of branches in local repo
+  git branch <name> - creates a new local branch named ...
+  git branch -d/-D <name> - deletes the branch named ...
+    git branch -d grumpy-cat
+  git branch -m <name> - rename the current branch to 'name'
+
+  git checkout - перекидає нас на нову гілку до того, як ми закомітимо наші зміни
+  git merge <branch_name> - зливає докупи дві гілки
+  git checkout -b <name> - створює нову гілку і одразу переходить на неї
+  git rebase <branch_name> - перемістити коміт на один пункт пізніше, ніж попередній коміт, але який не буде мати змін із попереднього
+
+  HEAD - назва поточного вибраного коміта - з яким ти зараз працюєш
+  detached HEAD - відділена голова - HEAD посилається не на гілку, а на коміт
+
+  git log - подивитися хеші комітів (назви). Хеші переважно довгі, але непотрібно вказувати весь, гіт розуміє і по перших 4.
+  ^ - оператор каретки - йдемо вверх на один коміт
+  ~<число> - йдемо вверх на вказане число комітів
+  git checkout HEAD~4 - піднімає хед на 4 пункти
+  git branch -f main HEAD~3
+
+  git cherry-pick <commit1> <commit2> <...> - скопіювати серію комітів до поточного розташування. Ним зручно користуватися, коли ти знаєш, які коміти тобі потрібні (і їхні хеші)
+  git cherry-pick C2 C4 - копіює коміти С2 і С4 до поточного розташування
+
+  git rebase -i - git відкриє діалог, в якому покаже, які коміти будуть скопійовані до кінцевого призначення, їхні хеші і повідомлення.
+  git rebase -i HEAD~4 - можна буде поміняти місцями останні 4 коміти
+
+  git commit --amend - внести правку до останнього коміту
+
+  git tag v1 C1 - створити новий таг під назвою v1 на С1
+  git describe <посилання> - описати, де ти є відносно найближчого орієнтира (тобто, тага). Якщо не вказати посилання, то гіт використає поточну локацію (HEAD).
+  Вивід команди виглядає так:
+  <таг (найближчий попередній таг у історії)>_<к-ть комітів (наскільки таг далеко в історії)>_g<хеш поточного коміта, останнього>
+  git tag v2 C3 - створити новий таг під назвою v2 на коміті С3
+  git describe main
+  git decsribe side
+
+
+
+-->
