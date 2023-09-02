@@ -87,3 +87,43 @@ function combineFunctions(...functions) { // аргументами цієї ф�
     return functions.reduce((result, func) => func(result), ...args); // перша функція відпрацює з initial value, друга викличеться із аргументом, що одночасно є результатом першої функції і т.д.
   };
 }
+
+// 2. 
+function getLanguages(students, condition = () => true) {
+  return students.reduce((result, student) => {
+    if (condition(student)) {
+      result.push(...student.languages);
+    }
+    return result;
+  }, []); // через кому пишеться початкове значення, тут це порожній масив
+}
+
+
+// 3.
+const upperCase = (string) => string.toUpperCase();
+const tripleExclaim = (string) => string + '!!!';
+const split = (separator) => {
+  return function (string) {
+    return string.split(separator);
+  };
+};
+const join = (separator) => (arr) => arr.join(separator);
+
+const copy = (string) => {
+  return `${string} ${string}`;
+};
+
+let createComposition = (...functions) => {
+  return function (initialValue) {
+    return functions.reduce((result, func) => func(result), initialValue);
+  };
+};
+
+const result = createComposition(
+  upperCase,
+  tripleExclaim,
+  split('_'),
+  join(' '),
+  copy
+);
+
