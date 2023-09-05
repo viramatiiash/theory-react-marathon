@@ -20,6 +20,49 @@ let employee = {
 };
 console.log(employee.getWage()); // 30200;
 ____________________________________________________________________________________________________________________
+// Клас можна писати інакше, без ключового слова class
+function Employee(name, experience) {
+  this.name = name;
+  this.experience = experience;
+
+  this.baseSalary = 500; // щоб забрати можливість у користувачів цього класу змінювати це поле, потрібно оголосити baseSalary як змінну const.
+  this.getSalary = function () { // якщо ми хочемо, щоб і метод getSalary був недоступний для зміни, тоді ми маємо його оголосити також як змінну: const getSalary = function() {} ...
+    return this.baseSalary * (1 + experience / 5); // Якщо змінюємо зверху baseSalary на const, тоді тут записуємо без this : return baseSalary * ... 
+  }
+  this.getDetails = function () {
+    console.log(`Name: ${this.name}, experience: ${this.experience}, salary: ${this.getSalary()}`); // Якщо і метод оголошуємо через const, тоді і логувати його потрібно інакше: ... salary: ${getSalary()}
+  }
+}
+
+let employee1 = new Employee('Tom', 5);
+employee1.baseSalary = 200; // якщо baseSalary буде назначено через const, то ця операція не спрацює
+employee1.getDetails();
+employee1.getSalary(); // 400 // Якщо метод оголошений через змінну, тоді виб'є помилку: TypeError: employee1.getSalary is not  a function
+
+// ! Тепер те саме у вигляді класу:
+// Клас можна писати інакше, без ключового слова class
+class Employee1{
+  constructor(name, experience) {
+    this.name = name;
+    this.experience = experience;
+  }
+  
+  #baseSalary = 500; // якщо ми хочемо зробити неможливим зміну чи навіть вичитування даної змінної, то перед нею просто треба написати решітку #
+  getSalary = function () {
+    return this.#baseSalary * (1 + this.experience / 5);
+  }
+  getDetails = function () {
+    console.log(`Name: ${this.name}, experience: ${this.experience}, salary: ${this.getSalary()}`); 
+  }
+}
+
+
+
+let employee2 = new Employee1('Tom', 5);
+// employee2.#baseSalary = 200; // якщо забрати решітку, то код відпрацює без помилок, але так ніби мине цей рядок: Name: Tom, experience: 5, salary: 1000 // 1000
+employee2.getDetails(); // Name: Tom, experience: 5, salary: 400
+employee2.getSalary(); // 400 // має вибити помилку
+____________________________________________________________________________________________________________________
 // ? 2. Abstraction - ми можемо приховати певні властивості зовні. Таким чимось інтерфейс такого об'єкта робиться легшим, зменшує вплив змін. We hide the details and the complexity and show only the essentials - this reduces complexity, isolates impact of changes
 
 
@@ -80,7 +123,96 @@ const miniven1 = new Car('Renault Scenic', 220, 7);
 console.log(miniven.speed); // 220
 console.log(miniven.passengers); // 7
 ____________________________________________________________________________________________________________________
-// ? 4. Polymorphism - багато форм. Дозволяє позбутися довгих if/if else statements, switch statements 
+// ? 4. Polymorphism - багато форм. Дозволяє позбутися довгих if/if else statements, switch statements
+// Це означає, що дочірні класи наслідують батьківський клас із певним методом, але той метод по-своєму видозмінюють.
+
+class Vehicle1 {
+  constructor(kind, speed) {
+    this.kind = kind;
+    this.speed = speed;
+  }
+
+  drive() {
+    console.log(`${this.kind} is driving`);
+  }
+}
+
+class Car1 extends Vehicle1 {
+  constructor(kind, speed, passengers) {
+    super(kind, speed);
+    this.passengers = passengers;
+  }
+
+  drive() {
+    super.drive(); // тягнемо батьківський метод drive
+    console.log(`Maximum ${this.kind} speed: ${this.speed} km/h`); // перевизначаємо його (overriding), добавляємо щось нове
+  }
+  carryPassengers() {
+    console.log(`${this.kind} carries ${this.passengers}`);
+  }
+}
+
+const miniven2 = new Car1('Scenic', 200, 7);
+miniven2.drive(); // Scenic is driving
+// Maximum Scenic speed: 200 km/h
+
+// ! Класи у ES6 можна вважати синтаксичним цукром для існуючого успадковування прототипу в джаваскрипті. У js всі об'єкти мають приховану властивість [[Prototype]], яка є або іншим об'єктом, або має значення null.
+
+class Student {
+  constructor(fullName, direction) {
+    this._fullName = fullName;
+    this._direction = direction;
+  }
+
+  getFullName() {
+    return this._fullName;
+  }
+
+  nameIncludes(data) {
+    return this.getfullName().includes(data) ? true : false;
+  }
+
+  get() {
+    return this._direction;
+  }
+
+  set(direction) {
+    this._direction = direction;
+  }
+
+  static studentBuilder() {
+    return new Student('Ihor Kohut', 'qc');
+  }
+}
+
+const stud1 = new Student('Ivan Petrenko', 'web');
+const stud2 = new Student('Sergiy Koval', 'python');
 
 
-// ! Класи у ES6 можна вважати синтаксичним цукром для існуючого успадковування прототипу в джаваскрипті. У js всі об'єкти мають приховану властивість [[Prototype]], яка є або іншим об'єктом, або має значення null. 
+// What is the type of relationship between the objects in these classes?
+// class Salary {
+//   constructor(pay, bonus) {
+//     this.pay = pay;
+//     this.bonus = bonus;
+//   }
+
+//   annual_salary() {
+//     return (this.pay * 12) + this.bonus;
+//   }
+// }
+
+// class Employee {
+//   constructor(name, age, salary) {
+//     this.name = name;
+//     this.age = age;
+//     this.salary = salary;
+//   }
+//   total_salary() {
+//     if (this.salary) {
+//       return this.salary.annual_salary();
+//     }
+//   }
+// }
+
+
+
