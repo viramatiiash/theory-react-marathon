@@ -93,7 +93,7 @@ const deletedElement = cities9.splice(0, 1); // 'Rome'
 console.log(cities9); // ['Lviv', 'Warsaw']
 ____________________________________________________________
 
-// 6. splice(pos, deleteCount, items) - starting at the pos index, removes deleteCount items and inserts items.
+// 6. splice(pos, deleteCount, items, item1, item2...) - starting at the pos index, removes deleteCount items and inserts items. 
 // 7. concat(items) - returns a new array: copies all members of the current array and adds items to it.
 // 8. forEach(func) - calls func for each element
 // 9. map() - creates a new array with the results of calling a function for every array element
