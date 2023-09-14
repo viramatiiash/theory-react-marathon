@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>First</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+
+    <script>
+      // Book, App
+      const Book = (props) => {
+        return React.createElement('div', {}, [
+          React.createElement('h2', {}, props.name),
+          React.createElement('p', {}, props.price)
+        ]);
+      }
+
+      const App = () => {
+        return React.createElement('div', {}, [
+          React.createElement(Book, {name: 'JS', price: '100grn'}),
+          React.createElement(Book, {name: 'JSX', price: '300grn'})
+        ])
+      }
+
+      const root = document.getElementById('root');
+      ReactDOM.render(React.createElement(App, null), root);
+    </script>
+  </body>
+</html>

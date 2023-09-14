@@ -28,7 +28,7 @@ console.log('j is equal to', j); // 150
 {
   var j1 = 150;
 }
-console.log('j is equal to', j1);
+console.log('j is equal to', j1); // 150
 // змінна із ключовим словом var видима і поза межами блоку.
 
 function funcField() {
