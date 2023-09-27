@@ -1,0 +1,1 @@
+(()=>{"use strict";(new class{showMessage(){alert("The application started!")}}).showMessage()})();

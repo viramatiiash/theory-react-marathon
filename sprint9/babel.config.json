@@ -1,0 +1,7 @@
+{
+  "presets": ["@babel/preset-env"] // перетворить наш код на версію ecmascript 2015
+}
+
+// npm i @babel/preset-env --save-dev
+// npx -p  @babel/cli babel ./src/index.js - якась функція, щоб запустити babel?
+// npm i babel-loader @babel/core --save-dev - поєднати вебпак з бейбелом?
